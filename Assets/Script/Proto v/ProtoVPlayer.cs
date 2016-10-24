@@ -16,7 +16,7 @@ public class ProtoVPlayer : MonoBehaviour
     {
         playerCollider = GetComponent<CircleCollider2D>();
         currentColor = playerOriginal;
-        //GetComponent<Rigidbody2D>().AddForce(transform.right * 200);
+        GetComponent<Rigidbody2D>().AddForce(transform.right * 150);
     }
 
     void Update()
