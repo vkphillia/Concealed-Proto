@@ -9,7 +9,7 @@ public class PlatformControl : MonoBehaviour
         if (GameManager.Instance.gamePlaying)
         {
             //Debug.Log(transform.position);
-            transform.Translate(Vector3.down.normalized * 0.05f);
+            transform.Translate(Vector3.right.normalized * 0.05f);
 
             if (transform.position.x >= 33f && GameManager.Instance.levelNo == 0)
             {

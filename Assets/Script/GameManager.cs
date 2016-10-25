@@ -123,6 +123,11 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void PlayProtoV()
+    {
+        SceneManager.LoadScene(2);
+    }
+
     void LoadMenu()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
