@@ -52,10 +52,6 @@ public class PlayerControl : MonoBehaviour
             }
             
         }
-        else
-        {
-            //GetComponent<Rigidbody2D>().isKinematic = true;
-        }
         
 	}
 
@@ -75,50 +71,7 @@ public class PlayerControl : MonoBehaviour
             ShadowMode();
     }
 
-    //void KeyboardControl()
-    //{
-    //    if(Input.GetKeyDown(KeyCode.Space))
-    //    {
-            
-    //    }
-    //    else if(Input.GetKeyDown(KeyCode.S))
-    //    {
-            
-    //    }
-    //    else
-    //    {
-    //        ShadowModeOff();
-    //    }
-    //}
-
-    //void MobileControl()
-    //{
-    //    int count = Input.touchCount;
-
-    //    if(count==0)
-    //    {
-    //        ShadowModeOff();
-    //    }
-
-    //    for (int i = 0; i < count; i++)
-    //    {
-    //        Touch touch = Input.GetTouch(i);
-
-    //        if (touch.position.x < Screen.width / 2)
-    //        {
-    //            if (GetComponent<Rigidbody2D>().velocity.y == 0)
-    //            {
-    //                //Debug.Log("force given" + GetComponent<Rigidbody2D>().velocity.y);
-    //                GetComponent<Rigidbody2D>().AddForce(transform.up * forcePower);
-    //            }
-    //        }
-    //        else if (touch.position.x > Screen.width / 2)
-    //        {
-    //            if (!shadowMode)
-    //                ShadowMode();
-    //        }
-    //    }
-    //}
+    
 
     void ShadowMode()
     {

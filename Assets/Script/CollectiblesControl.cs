@@ -10,7 +10,7 @@ public class CollectiblesControl : MonoBehaviour
         {
             other.gameObject.GetComponent<PlayerControl>().collectiblesCollected++;
             //gameover
-            GameManager.Instance.GameOver(true,false);
+            //GameManager.Instance.GameOver(true,false);
             this.gameObject.SetActive(false);
         }
     }

@@ -10,13 +10,11 @@ public class MoveObstacle : MonoBehaviour
     {
         if (GameManager.Instance.gamePlaying)
         {
-            //transform.Translate(Vector3.up * Time.deltaTime * 2);
-        }
-        else
-        {
-            //Debug.Log("not playing");
-        }
+            transform.Translate(Vector3.up.normalized * 0.05f);
 
+            if (transform.position.x < -5)
+                Destroy(gameObject);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -24,7 +22,6 @@ public class MoveObstacle : MonoBehaviour
         if(other.gameObject.tag=="Player")
         {
             //Debug.Log("triggered");
-            //other.GetComponent<Rigidbody2D>().isKinematic = true;
             other.gameObject.GetComponent<PlayerControl>().IncreaseSize();
         }
     }

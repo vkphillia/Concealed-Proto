@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -33,8 +34,8 @@ public class GameManager : MonoBehaviour
     public Vector3 playerPosition;
     public bool gamePlaying;
     public int noOfObstacle;
-
     public int levelNo;
+    public Text score;
 
     void Start()
     {
@@ -46,19 +47,31 @@ public class GameManager : MonoBehaviour
         
         gamePlaying = true;
         player.gameObject.SetActive(true);
-        //StartCoroutine(obstaclePooler.GenerateObstacle(noOfObstacle));
+        StartCoroutine(obstaclePooler.GenerateObstacle());
         player.transform.position = playerPosition;
         player.GetComponent<Rigidbody2D>().isKinematic = false;
         title.SetActive(false);
-        //StartCoroutine(SloMo());
+        StartCoroutine(SetScore());
     }
     
+    IEnumerator SetScore()
+    {
+        int scoreCount = 0;
+
+        while(GameManager.Instance.gamePlaying)
+        {
+            score.text = "Distance covered: " +scoreCount.ToString();
+            yield return new WaitForSeconds(0.2f);
+            scoreCount += 1;
+        }
+    }
 
     public void GameOver(bool win,bool end)
     {
         if(end)
         {
-            LoadMenu();
+            gamePlaying = false;
+            StartCoroutine(LoadMenu());
             return;
         }
 
@@ -72,8 +85,7 @@ public class GameManager : MonoBehaviour
 
         else if(win)//Level Over
         {
-            levelNo++;
-            
+            levelNo++;   
         }
         else 
         {
@@ -128,8 +140,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
-    void LoadMenu()
+    IEnumerator LoadMenu()
     {
+        Debug.Log("Reloading scene");
+        //score.rectTransform.transform.localPosition = new Vector3(0, 0, 0);
+        yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

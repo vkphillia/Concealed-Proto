@@ -45,6 +45,12 @@ public class ProtoVManager : MonoBehaviour
         StartCoroutine(GenerateCollectibles());
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Menu();
+    }
+
     public IEnumerator GeneratePlatform()
     {
         while (gamePlaying)
@@ -85,4 +91,10 @@ public class ProtoVManager : MonoBehaviour
         StopAllCoroutines();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    void Menu()
+    {
+        SceneManager.LoadScene(1);
+    }
+
 }

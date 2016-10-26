@@ -6,46 +6,49 @@ public class ObstaclePooler : MonoBehaviour
     public GameObject obstacle;
     public GameObject platform;
     public Vector3 spawnPosition;
+    int platformCount;
 
-	// Use this for initialization
-	void Start ()
+    public IEnumerator GenerateObstacle()
     {
-	
-	}
-	
+        //StartCoroutine(GeneratePlatform());
 
-    public IEnumerator GenerateObstacle(int noOfObstacle)
-    {
-        StartCoroutine(GeneratePlatform());
-
-        while(GameManager.Instance.gamePlaying && noOfObstacle>0)
+        while(GameManager.Instance.gamePlaying)
         {
             GameObject tempO = Instantiate(obstacle);
             tempO.transform.position = spawnPosition;
             tempO.transform.rotation = Quaternion.Euler(0, 0, 90);
             tempO.transform.SetParent(transform, false);
 
-            noOfObstacle--;
-
-            yield return new WaitForSeconds(2f);
+            if (Time.timeSinceLevelLoad > 20 && platformCount == 0)
+            {
+                GeneratePlatform();
+                platformCount++;
+            }
+            else if (Time.timeSinceLevelLoad > 30 && platformCount == 1)
+            {
+                GeneratePlatform();
+                platformCount++;
+            }
+            else if (Time.timeSinceLevelLoad > 10 && Time.timeSinceLevelLoad < 20)
+                yield return new WaitForSeconds(1.64f);
+            else if (Time.timeSinceLevelLoad > 30)
+                yield return new WaitForSeconds(1.64f);
+            else
+                yield return new WaitForSeconds(1.64f * 2f);
         }
 
         //GameManager.Instance.GameOver();
-        Debug.Log("time:" + Time.timeSinceLevelLoad);
+        //Debug.Log("time:" + Time.timeSinceLevelLoad);
 
     }
 
-    public IEnumerator GeneratePlatform()
+    void GeneratePlatform()
     {
-        while (GameManager.Instance.gamePlaying)
-        {
-            GameObject tempP = Instantiate(platform);
-            tempP.transform.position = new Vector3(9,-3.39f,0);
-            tempP.transform.rotation = Quaternion.Euler(0, 0, 0);
-            tempP.transform.SetParent(transform, false);
-
-            yield return new WaitForSeconds(5f);
-        }
+        GameObject tempP = Instantiate(platform);
+        tempP.transform.position = new Vector3(9, -1.9f, 0);
+        tempP.transform.rotation = Quaternion.Euler(0, 0, 0);
+        tempP.transform.SetParent(transform, false);
+        tempP.GetComponent<PlatformControl>().isMoving = true;
     }
 
     //IEnumerator MoveToStart()
