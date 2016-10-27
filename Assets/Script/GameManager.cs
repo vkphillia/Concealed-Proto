@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         
         gamePlaying = true;
         player.gameObject.SetActive(true);
-        StartCoroutine(obstaclePooler.GenerateObstacle());
+        StartCoroutine(obstaclePooler.GenerateObstacle());//obstacles
         player.transform.position = playerPosition;
         player.GetComponent<Rigidbody2D>().isKinematic = false;
         title.SetActive(false);

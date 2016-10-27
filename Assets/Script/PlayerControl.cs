@@ -24,7 +24,7 @@ public class PlayerControl : MonoBehaviour
     }
 
 	// Update is called once per frame
-	void FixedUpdate ()
+	void Update ()
     {
         if(GameManager.Instance.gamePlaying)
         {
@@ -39,12 +39,15 @@ public class PlayerControl : MonoBehaviour
 
 //            Debug.Log("force:" + GetComponent<Rigidbody2D>().velocity.y);
 
-            if (Input.GetButton("Fire1"))
+            if (Input.GetMouseButtonDown(0))
             {
                 ShadowMode();
             }
-            else
+            else if (Input.GetMouseButtonUp(0))
+            {
                 ShadowModeOff();
+            }
+                
 
             if(transform.position.y<-5.5f)
             {
@@ -75,9 +78,13 @@ public class PlayerControl : MonoBehaviour
 
     void ShadowMode()
     {
+        Debug.Log("Shadow");
         shadowMode = true;
         playerCollider.enabled = false;
         GetComponent<SpriteRenderer>().color = playerShadow;
+
+        if(GetComponent<Rigidbody2D>().velocity.y>0)
+            GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
         //Debug.Log("force:" + GetComponent<Rigidbody2D>().velocity.y);
         //Debug.Log("shadowMode:" + sMode);
     }
@@ -87,6 +94,7 @@ public class PlayerControl : MonoBehaviour
     {
         if(i!=1)
         {
+            Debug.Log("Shadow off");
             shadowMode = false;
             playerCollider.enabled = true;
             GetComponent<SpriteRenderer>().color = currentColor;

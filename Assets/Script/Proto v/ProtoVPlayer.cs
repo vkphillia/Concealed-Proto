@@ -29,6 +29,7 @@ public class ProtoVPlayer : MonoBehaviour
                 return;
             }
 
+            PlayerMovementMobile();
 
             if (Input.GetButton("Fire1"))
             {
@@ -39,6 +40,13 @@ public class ProtoVPlayer : MonoBehaviour
         }
     }
     
+    void PlayerMovementMobile()
+    {
+        float delta = Input.acceleration.x * 0.1f;
+        transform.position += new Vector3(delta, 0, 0);
+        //transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+    }
+
     void ShadowMode()
     {
         shadowMode = true;
