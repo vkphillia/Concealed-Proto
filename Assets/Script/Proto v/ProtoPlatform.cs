@@ -11,6 +11,7 @@ public class ProtoPlatform : MonoBehaviour
     public PlatformType myType;
     
     public float power;
+    public float platformUpSpeed;
 
     void Start()
     {
@@ -27,7 +28,7 @@ public class ProtoPlatform : MonoBehaviour
         {
             if(myType != PlatformType.LeftSide && myType != PlatformType.RightSide)
             {
-                transform.Translate(Vector3.up.normalized * 0.025f);
+                transform.Translate(Vector3.up.normalized * platformUpSpeed);
             }
 
             if (myType == PlatformType.Moving)

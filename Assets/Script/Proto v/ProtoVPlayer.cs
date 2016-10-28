@@ -18,8 +18,8 @@ public class ProtoVPlayer : MonoBehaviour
         playerCollider = GetComponent<CircleCollider2D>();
         currentColor = playerOriginal;
         GetComponent<Rigidbody2D>().AddForce(transform.right * 150);
-        StartCoroutine(IncreaseBallSpeed());
-        ballSpeed = 0.1f;
+        //StartCoroutine(IncreaseBallSpeed()); //Increase ball speed gradually
+        ballSpeed = 0.3f;
     }
 
     void Update()
@@ -33,6 +33,7 @@ public class ProtoVPlayer : MonoBehaviour
             }
 
             PlayerMovementMobile();
+            //KeyboardMovement();
 
             if (Input.GetButton("Fire1"))
             {
@@ -50,14 +51,22 @@ public class ProtoVPlayer : MonoBehaviour
         //transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
-    IEnumerator IncreaseBallSpeed()
-    {
-        while(ProtoVManager.Instance.gamePlaying)
-        {
-            yield return new WaitForSeconds(2);
-            ballSpeed += 0.01f;
-        }
-    }
+    //void KeyboardMovement()
+    //{
+    //    if(Input.GetKeyDown(KeyCode.A))
+    //        transform.position += new Vector3(0.5f, 0, 0);
+    //    else if(Input.GetKeyDown(KeyCode.S))
+    //        transform.position += new Vector3(-0.5f, 0, 0);
+    //}
+
+    //IEnumerator IncreaseBallSpeed()
+    //{
+    //    while(ProtoVManager.Instance.gamePlaying)
+    //    {
+    //        yield return new WaitForSeconds(2);
+    //        ballSpeed += 0.01f;
+    //    }
+    //}
 
     void ShadowMode()
     {
