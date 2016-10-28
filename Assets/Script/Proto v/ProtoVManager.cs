@@ -86,21 +86,23 @@ public class ProtoVManager : MonoBehaviour
             }
 
             
-            if (r == 5|| r == 6)
+            if (r == 5|| r == 6)//BOUNCE
             {
                 tempP.GetComponent<ProtoPlatform>().myType = ProtoPlatform.PlatformType.Bouncing;
                 tempP.GetComponent<ProtoPlatform>().power = 150;
                 tempP.SetActive(true);
                 specialPlatformCount++;
             }
-            else if(r==3|| r == 4)
+            else if(r==3|| r == 4)//BLINKING
             {
                 tempP.GetComponent<ProtoPlatform>().myType = ProtoPlatform.PlatformType.Blinking;
                 tempP.SetActive(true);
                 specialPlatformCount++;
             }
-            else if(r==1|| r == 2)
+            else if(r==1|| r == 2)//MOVING
             {
+                tempP.transform.localScale = new Vector3(0.3f, 0.3f, 1);
+                tempP.transform.localPosition = new Vector3(-1.3f, platformSpawnPosition.y, 0);
                 tempP.GetComponent<ProtoPlatform>().myType = ProtoPlatform.PlatformType.Moving;
                 tempP.SetActive(true);
                 specialPlatformCount++;

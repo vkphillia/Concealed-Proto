@@ -11,12 +11,15 @@ public class ProtoVPlayer : MonoBehaviour
     CircleCollider2D playerCollider;
     bool shadowMode;
     Color currentColor;
+    float ballSpeed;
 
     void Start()
     {
         playerCollider = GetComponent<CircleCollider2D>();
         currentColor = playerOriginal;
         GetComponent<Rigidbody2D>().AddForce(transform.right * 150);
+        StartCoroutine(IncreaseBallSpeed());
+        ballSpeed = 0.1f;
     }
 
     void Update()
@@ -42,9 +45,18 @@ public class ProtoVPlayer : MonoBehaviour
     
     void PlayerMovementMobile()
     {
-        float delta = Input.acceleration.x * 0.1f;
+        float delta = Input.acceleration.x * ballSpeed;
         transform.position += new Vector3(delta, 0, 0);
         //transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+    }
+
+    IEnumerator IncreaseBallSpeed()
+    {
+        while(ProtoVManager.Instance.gamePlaying)
+        {
+            yield return new WaitForSeconds(2);
+            ballSpeed += 0.01f;
+        }
     }
 
     void ShadowMode()
