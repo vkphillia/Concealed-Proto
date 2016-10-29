@@ -8,6 +8,9 @@ public class ProtoVPlayer : MonoBehaviour
     public float outerX;
     public float outerY;
 
+    [HideInInspector]
+    public float movementDirection = 1;
+
     CircleCollider2D playerCollider;
     bool shadowMode;
     Color currentColor;
@@ -31,33 +34,76 @@ public class ProtoVPlayer : MonoBehaviour
                 ProtoVManager.Instance.GameOver();
                 return;
             }
+            
+            //if (Input.touchCount > 0)
+            //{
+            //    var touch = Input.touches[0];
 
-            PlayerMovementMobile();
-            //KeyboardMovement();
+            //    Debug.Log(touch.phase);
 
-            if (Input.GetButton("Fire1"))
-            {
-                ShadowMode();
-            }
-            else
-                ShadowModeOff();
+            //    switch (touch.phase)
+            //    {
+            //        case TouchPhase.Began:
+            //            startTime = Time.time;
+            //            break;
+
+            //        case TouchPhase.Stationary:
+            //            Debug.Log("Stationary");
+            //            ShadowMode();
+            //            break;
+
+            //        case TouchPhase.Ended:
+            //            ShadowModeOff();
+            //            break;
+            //    }
+            //}
+
+            KeyboardMovement();
+
+            //if (Input.GetButton("Fire1"))
+            //{
+            //    ShadowMode();
+            //}
+            //else
+            //    ShadowModeOff();
         }
     }
     
-    void PlayerMovementMobile()
+    public void PlayerMovementMobile()
     {
-        float delta = Input.acceleration.x * ballSpeed;
-        transform.position += new Vector3(delta, 0, 0);
-        //transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-    }
+        Vector3 currentVelocity = GetComponent<Rigidbody2D>().velocity;
+        GetComponent<Rigidbody2D>().velocity = new Vector3(5 * movementDirection, currentVelocity.y, 0);
 
-    //void KeyboardMovement()
-    //{
-    //    if(Input.GetKeyDown(KeyCode.A))
-    //        transform.position += new Vector3(0.5f, 0, 0);
-    //    else if(Input.GetKeyDown(KeyCode.S))
-    //        transform.position += new Vector3(-0.5f, 0, 0);
-    //}
+        //MOTION sensor code
+        //float delta = Input.acceleration.x * ballSpeed;
+        //transform.position += new Vector3(delta, 0, 0);
+    }
+    
+
+    void KeyboardMovement()
+    {
+        Vector3 currentVelocity = GetComponent<Rigidbody2D>().velocity;
+        Debug.Log(currentVelocity);
+
+        if (Input.GetButton("Fire1"))
+        {
+            ShadowMode();
+        }
+        else
+            ShadowModeOff();
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            movementDirection = -1;
+            GetComponent<Rigidbody2D>().velocity = new Vector3(5 * movementDirection, currentVelocity.y, 0);
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            movementDirection = 1;
+            GetComponent<Rigidbody2D>().velocity = new Vector3(5 * movementDirection, currentVelocity.y, 0);
+        }
+        
+    }
 
     //IEnumerator IncreaseBallSpeed()
     //{
@@ -68,7 +114,7 @@ public class ProtoVPlayer : MonoBehaviour
     //    }
     //}
 
-    void ShadowMode()
+    public void ShadowMode()
     {
         shadowMode = true;
         playerCollider.enabled = false;

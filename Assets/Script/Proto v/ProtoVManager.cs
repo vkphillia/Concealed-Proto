@@ -88,7 +88,7 @@ public class ProtoVManager : MonoBehaviour
             }
 
             if (platformSpeed < 0.06f)
-                platformSpeed = 0.015f + Mathf.FloorToInt(Time.timeSinceLevelLoad) / 10000f;
+                platformSpeed = 0.015f + Mathf.FloorToInt(Time.timeSinceLevelLoad) / 2000f;
 
             //Debug.Log(platformSpeed);
             
@@ -138,7 +138,7 @@ public class ProtoVManager : MonoBehaviour
             }
             
 
-            yield return new WaitForSeconds(Random.Range(2,6));
+            yield return new WaitForSeconds(Random.Range(2,5));
 
             //if (Time.timeSinceLevelLoad > 10)
             //    Camera.main.transform.rotation = Quaternion.Euler(0,0,180);
