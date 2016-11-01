@@ -54,13 +54,16 @@ public class ProtoVManager : MonoBehaviour
 
     public IEnumerator GeneratePlatform()
     {
+        //yield return new WaitForSeconds(2f);
+
         int specialPlatformCount=0;
         float platformSpeed =0.015f;
 
         while (gamePlaying)
         {
             GameObject tempP = Instantiate(platform);
-            tempP.transform.position = platformSpawnPosition;
+            tempP.transform.position = new Vector3(Random.Range(-2.76f,2.76f), platformSpawnPosition.y,0);
+            tempP.transform.localScale = new Vector3(1,Random.Range(0.2f,1),1);
             tempP.transform.rotation = Quaternion.Euler(0, 0, 0);
             tempP.transform.SetParent(platformHolder.transform, false);
 
@@ -118,10 +121,11 @@ public class ProtoVManager : MonoBehaviour
                 tempP.SetActive(true);
                 specialPlatformCount++;
             }
-            else
+            else//NORMAL
             {
                 tempP.GetComponent<ProtoPlatform>().myType = ProtoPlatform.PlatformType.Normal;
                 tempP.GetComponent<ProtoPlatform>().platformUpSpeed = platformSpeed;
+                tempP.GetComponent<ProtoPlatform>().power = 150;
                 tempP.SetActive(true);
                 if(specialPlatformCount>0)
                     specialPlatformCount--;
@@ -138,7 +142,7 @@ public class ProtoVManager : MonoBehaviour
             }
             
 
-            yield return new WaitForSeconds(Random.Range(2,5));
+            yield return new WaitForSeconds(Random.Range(2,3));
 
             //if (Time.timeSinceLevelLoad > 10)
             //    Camera.main.transform.rotation = Quaternion.Euler(0,0,180);
@@ -164,7 +168,7 @@ public class ProtoVManager : MonoBehaviour
 
     public void SetScore()
     {
-        score.text = "Score: " + scoreCount.ToString();
+        score.text =  scoreCount.ToString();
     }
 
     public void GameOver()

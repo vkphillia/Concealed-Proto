@@ -20,7 +20,7 @@ public class ProtoVPlayer : MonoBehaviour
     {
         playerCollider = GetComponent<CircleCollider2D>();
         currentColor = playerOriginal;
-        GetComponent<Rigidbody2D>().AddForce(transform.right * 150);
+        //GetComponent<Rigidbody2D>().AddForce(transform.right * 150);
         //StartCoroutine(IncreaseBallSpeed()); //Increase ball speed gradually
         ballSpeed = 0.3f;
     }
@@ -59,31 +59,32 @@ public class ProtoVPlayer : MonoBehaviour
             //}
 
             KeyboardMovement();
+            PlayerMovementMobile();
 
-            //if (Input.GetButton("Fire1"))
-            //{
-            //    ShadowMode();
-            //}
-            //else
-            //    ShadowModeOff();
+            if (Input.GetButton("Fire1"))
+            {
+                ShadowMode();
+            }
+            else
+                ShadowModeOff();
         }
     }
     
     public void PlayerMovementMobile()
     {
-        Vector3 currentVelocity = GetComponent<Rigidbody2D>().velocity;
-        GetComponent<Rigidbody2D>().velocity = new Vector3(5 * movementDirection, currentVelocity.y, 0);
+        //Vector3 currentVelocity = GetComponent<Rigidbody2D>().velocity;
+        //GetComponent<Rigidbody2D>().velocity = new Vector3(5 * movementDirection, currentVelocity.y, 0);
 
         //MOTION sensor code
-        //float delta = Input.acceleration.x * ballSpeed;
-        //transform.position += new Vector3(delta, 0, 0);
+        float delta = Input.acceleration.x * ballSpeed;
+        transform.position += new Vector3(delta, 0, 0);
     }
     
 
     void KeyboardMovement()
     {
         Vector3 currentVelocity = GetComponent<Rigidbody2D>().velocity;
-        Debug.Log(currentVelocity);
+        //Debug.Log(currentVelocity);
 
         if (Input.GetButton("Fire1"))
         {
@@ -120,6 +121,7 @@ public class ProtoVPlayer : MonoBehaviour
         playerCollider.enabled = false;
         GetComponent<SpriteRenderer>().color = playerShadow;
         //GetComponent<Rigidbody2D>().velocity;
+        //Invoke("ShadowModeOff",0.5f);
     }
 
     public void ShadowModeOff()

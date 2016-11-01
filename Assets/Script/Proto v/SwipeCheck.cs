@@ -10,6 +10,9 @@ public class SwipeCheck : MonoBehaviour
     float comfortZone;
     float minSwipeDist;
     float maxSwipeTime;
+    bool verticleSwipe;
+    bool horizontalSwipe;
+     
     ProtoVPlayer player;
 
     void Start()
@@ -48,17 +51,30 @@ public class SwipeCheck : MonoBehaviour
 
                 case TouchPhase.Stationary:
                     Debug.Log("Stationary");
-                    if ((Time.time - startTime) > 0.05f)
-                        player.ShadowMode();
+                    //if ((Time.time - startTime) > 0.05f)
+                        //player.ShadowMode();
                     break;
 
-                case TouchPhase.Ended:
-                    player.ShadowModeOff();
+                case TouchPhase.Ended://ALL SWIPE DETECTION HERE
+                    //player.ShadowModeOff();
                     var swipeTime = Time.time - startTime;
                     var swipeDist = (touch.position - startPos).magnitude;
+
+                    horizontalSwipe = true;
+                    verticleSwipe = true;
+
                     if (Mathf.Abs(touch.position.x - startPos.x) < comfortZone)
                     {
                         Debug.Log("comfortZone:" + comfortZone + "cal:" + Mathf.Abs(touch.position.x - startPos.x));
+                        horizontalSwipe = false;
+                    }
+                    if(Mathf.Abs(touch.position.y - startPos.y) < comfortZone)
+                    {
+                        verticleSwipe = false;
+                    }
+
+                    if(!verticleSwipe && !horizontalSwipe)
+                    {
                         couldBeSwipe = false;
                     }
 
@@ -72,7 +88,20 @@ public class SwipeCheck : MonoBehaviour
                     if (couldBeSwipe && (swipeTime < maxSwipeTime) && (swipeDist > minSwipeDist))
                     {
                         // It's a swiiiiiiiiiiiipe!
-                        var swipeDirection = Mathf.Sign(touch.position.x - startPos.x);
+                        float swipeDirection;
+
+                        if (horizontalSwipe)
+                        {
+                            swipeDirection = Mathf.Sign(touch.position.x - startPos.x);
+                        }
+                        else
+                        {
+                            swipeDirection = Mathf.Sign(touch.position.x - startPos.x);
+                            if(swipeDirection==-1)
+                                player.ShadowMode();
+                            break;
+                        }
+
                         player.movementDirection = swipeDirection;
                         player.PlayerMovementMobile();
                         Debug.Log("Swipe:"+swipeDirection);

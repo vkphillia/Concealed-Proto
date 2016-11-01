@@ -15,6 +15,7 @@ public class PlayerControl : MonoBehaviour
     public int collectiblesCollected;
 
     Color currentColor;
+    float ballSpeed = 0.3f;
 
     void Start()
     {
@@ -29,7 +30,7 @@ public class PlayerControl : MonoBehaviour
         if(GameManager.Instance.gamePlaying)
         {
             //transform.position =new Vector3(transform.position.x, Mathf.PingPong(-2.0f,Time.time*2f ), transform.position.z);
-            //MobileControl();
+            PlayerMovementMobile();
             //KeyboardControl();
             //if (GetComponent<Rigidbody2D>().velocity.y == 0)
             //{
@@ -58,14 +59,24 @@ public class PlayerControl : MonoBehaviour
         
 	}
 
-    public  void JumpClick()
-    {
-        if(GetComponent<Rigidbody2D>().velocity.y ==0)
-        {
-            Debug.Log("force given" + GetComponent<Rigidbody2D>().velocity.y);
-            GetComponent<Rigidbody2D>().AddForce(transform.up * forcePower);
-        }
+    //public  void JumpClick()
+    //{
+    //    if(GetComponent<Rigidbody2D>().velocity.y ==0)
+    //    {
+    //        Debug.Log("force given" + GetComponent<Rigidbody2D>().velocity.y);
+    //        GetComponent<Rigidbody2D>().AddForce(transform.up * forcePower);
+    //    }
         
+    //}
+
+    public void PlayerMovementMobile()
+    {
+        //Vector3 currentVelocity = GetComponent<Rigidbody2D>().velocity;
+        //GetComponent<Rigidbody2D>().velocity = new Vector3(5 * movementDirection, currentVelocity.y, 0);
+
+        //MOTION sensor code
+        float delta = Input.acceleration.x * ballSpeed;
+        transform.position += new Vector3(delta, 0, 0);
     }
 
     public void ShadowModeBtnClick()

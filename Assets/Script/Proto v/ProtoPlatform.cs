@@ -63,12 +63,10 @@ public class ProtoPlatform : MonoBehaviour
         {
             other.gameObject.GetComponent<Rigidbody2D>().AddForce(other.gameObject.transform.up * power);
         }
-        //else if(other.gameObject.tag == "Player")
-        //{
-        //    if (other.gameObject.GetComponent<Rigidbody2D>().velocity.x < 1)
-        //        other.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(other.gameObject.GetComponent<Rigidbody2D>().velocity.x + 1, 0, 0);
-        //    //Debug.Log(other.gameObject.GetComponent<Rigidbody2D>().velocity);
-        //}
+        else if (other.gameObject.tag == "Player")
+        {
+            //other.gameObject.GetComponent<Rigidbody2D>().AddForce(other.gameObject.transform.up * power);
+        }
 
     }
 
